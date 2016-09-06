@@ -1,0 +1,88 @@
+{
+	nodes: [
+		{
+			name: "standard.input.bytes"
+			id: "1"
+			argument: "in.png"
+		}
+		{
+			name: "standard.converter.bytes.image"
+			id: "2"
+			argument: null
+		}
+		{
+			name: "standard.converter.imageNegation"
+			id: "3"
+			argument: null
+		}
+		{
+			name: "standard.converter.image.bytes"
+			id: "4"
+			argument: null
+		}
+		{
+			name: "standard.output.bytes"
+			id: "5"
+			argument: "out1.png"
+		}
+		{
+			name: "standard.output.bytes"
+			id: "6"
+			argument: "out2.png"
+		}
+	]
+	connections: [
+		{
+			from: {
+				node: "1"
+				pin: 0
+			}
+			to: {
+				node: "5"
+				pin: 0
+			}
+		}
+		{
+			from: {
+				node: "1"
+				pin: 0
+			}
+			to: {
+				node: "2"
+				pin: 0
+			}
+		}
+		{
+			from: {
+				node: "2"
+				pin: 0
+			}
+			to: {
+				node: "3"
+				pin: 0
+			}
+		}
+		{
+			from: {
+				node: "3"
+				pin: 0
+			}
+			to: {
+				node: "4"
+				pin: 0
+			}
+		}
+		{
+			from: {
+				node: "4"
+				pin: 0
+			}
+			to: {
+				node: "6"
+				pin: 0
+			}
+		}
+	]
+}
+
+

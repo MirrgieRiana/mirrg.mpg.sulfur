@@ -1,0 +1,43 @@
+{
+	nodes: [
+		{
+			name: "standard.input.interval"
+			id: "1"
+			argument: null
+		}
+		{
+			name: "standard.converter.toString"
+			id: "2"
+			argument: null
+		}
+		{
+			name: "standard.output.stdout"
+			id: "3"
+			argument: null
+		}
+	]
+	connections: [
+		{
+			from: {
+				node: "1"
+				pin: 0
+			}
+			to: {
+				node: "2"
+				pin: 0
+			}
+		}
+		{
+			from: {
+				node: "2"
+				pin: 0
+			}
+			to: {
+				node: "3"
+				pin: 0
+			}
+		}
+	]
+}
+
+
