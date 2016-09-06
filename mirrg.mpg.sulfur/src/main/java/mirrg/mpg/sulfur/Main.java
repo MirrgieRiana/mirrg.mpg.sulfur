@@ -27,7 +27,6 @@ import mirrg.mpg.sulfur.nodes.input.NodeInputLines;
 import mirrg.mpg.sulfur.nodes.input.NodeInputStream;
 import mirrg.mpg.sulfur.nodes.output.NodeOutputStdout;
 import mirrg.mpg.sulfur.nodes.output.NodeOutputStream;
-import net.arnx.jsonic.JSON;
 
 public class Main
 {
