@@ -8,18 +8,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import mirrg.mpg.sulfur.node.NodeEntryPoint;
-import mirrg.mpg.sulfur.node.pin.OutputPin;
+import mirrg.mpg.sulfur.node.pin.PinOutput;
 
 public class NodeInputCSV extends NodeEntryPoint
 {
 
 	private File file;
-	public final OutputPin<String[]> outputPin;
+	public final PinOutput<String[]> pinOutput;
 
 	public NodeInputCSV(File file)
 	{
 		this.file = file;
-		addOutputPin(outputPin = new OutputPin<>());
+		addPinOutput(pinOutput = new PinOutput<>());
 	}
 
 	@Override
@@ -31,13 +31,13 @@ public class NodeInputCSV extends NodeEntryPoint
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 
-			outputPin.fireClose();
+			pinOutput.fireClose();
 			return;
 		}
 
 		in.lines()
 			.map(l -> l.split("\\s*,\\s*"))
-			.forEach(outputPin::fire);
+			.forEach(pinOutput::fire);
 
 		try {
 			in.close();
@@ -45,7 +45,7 @@ public class NodeInputCSV extends NodeEntryPoint
 			e.printStackTrace();
 		}
 
-		outputPin.fireClose();
+		pinOutput.fireClose();
 	}
 
 }

@@ -5,16 +5,16 @@ import java.io.OutputStream;
 
 import mirrg.helium.standard.hydrogen.struct.Tuple3;
 import mirrg.mpg.sulfur.node.Node;
-import mirrg.mpg.sulfur.node.pin.InputPin;
+import mirrg.mpg.sulfur.node.pin.PinInput;
 
 public class NodeOutputStream extends Node
 {
 
-	public final InputPin<Tuple3<byte[], Integer, Integer>> inputPin;
+	public final PinInput<Tuple3<byte[], Integer, Integer>> pinInput;
 
 	public NodeOutputStream(OutputStream out)
 	{
-		addInputPin(inputPin = new InputPin<Tuple3<byte[], Integer, Integer>>() {
+		addPinInput(pinInput = new PinInput<Tuple3<byte[], Integer, Integer>>() {
 
 			@Override
 			protected void accept(Tuple3<byte[], Integer, Integer> packet)

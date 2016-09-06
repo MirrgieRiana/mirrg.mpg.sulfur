@@ -1,35 +1,35 @@
 package mirrg.mpg.sulfur.nodes.converter;
 
 import mirrg.mpg.sulfur.node.Node;
-import mirrg.mpg.sulfur.node.pin.InputPin;
-import mirrg.mpg.sulfur.node.pin.OutputPin;
+import mirrg.mpg.sulfur.node.pin.PinInput;
+import mirrg.mpg.sulfur.node.pin.PinOutput;
 
 public class NodeFlatMap<T> extends Node
 {
 
-	public final InputPin<T[]> inputPin;
-	public final OutputPin<T> outputPin;
+	public final PinInput<T[]> pinInput;
+	public final PinOutput<T> pinOutput;
 
 	public NodeFlatMap()
 	{
-		addInputPin(inputPin = new InputPin<T[]>() {
+		addPinInput(pinInput = new PinInput<T[]>() {
 
 			@Override
 			protected void onClosed()
 			{
-				outputPin.fireClose();
+				pinOutput.fireClose();
 			}
 
 			@Override
 			protected void accept(T[] packet)
 			{
 				for (T t : packet) {
-					outputPin.fire(t);
+					pinOutput.fire(t);
 				}
 			}
 
 		});
-		addOutputPin(outputPin = new OutputPin<>());
+		addPinOutput(pinOutput = new PinOutput<>());
 	}
 
 }

@@ -3,16 +3,16 @@ package mirrg.mpg.sulfur.node.pin;
 public class PinUtil
 {
 
-	public static <T> void connect(OutputPin<T> outputPin, InputPin<T> inputPin)
+	public static <T> void connect(PinOutput<T> pinOutput, PinInput<T> pinInput)
 	{
-		outputPin.hook(inputPin);
-		inputPin.hook(outputPin);
+		pinOutput.hook(pinInput);
+		pinInput.hook(pinOutput);
 	}
 
-	public static void connectRaw(OutputPin outputPin, InputPin inputPin)
+	public static void connectRaw(PinOutput pinOutput, PinInput pinInput)
 	{
-		outputPin.hook(inputPin);
-		inputPin.hook(outputPin);
+		pinOutput.hook(pinInput);
+		pinInput.hook(pinOutput);
 	}
 
 }

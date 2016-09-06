@@ -4,23 +4,23 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 import mirrg.mpg.sulfur.node.Node;
-import mirrg.mpg.sulfur.node.pin.InputPin;
-import mirrg.mpg.sulfur.node.pin.OutputPin;
+import mirrg.mpg.sulfur.node.pin.PinInput;
+import mirrg.mpg.sulfur.node.pin.PinOutput;
 
 public class NodeCSV2Struct extends Node
 {
 
-	public final InputPin<String[]> inputPin;
-	public final OutputPin<Object> outputPin;
+	public final PinInput<String[]> pinInput;
+	public final PinOutput<Object> pinOutput;
 
 	public NodeCSV2Struct()
 	{
-		addInputPin(inputPin = new InputPin<String[]>() {
+		addPinInput(pinInput = new PinInput<String[]>() {
 
 			@Override
 			protected void onClosed()
 			{
-				outputPin.fireClose();
+				pinOutput.fireClose();
 			}
 
 			@Override
@@ -36,11 +36,11 @@ public class NodeCSV2Struct extends Node
 				((ArrayList<Object>) hash.get("H")).add(packet[4]);
 				((ArrayList<Object>) hash.get("H")).add(packet[5]);
 
-				outputPin.fire(hash);
+				pinOutput.fire(hash);
 			}
 
 		});
-		addOutputPin(outputPin = new OutputPin<>());
+		addPinOutput(pinOutput = new PinOutput<>());
 	}
 
 }

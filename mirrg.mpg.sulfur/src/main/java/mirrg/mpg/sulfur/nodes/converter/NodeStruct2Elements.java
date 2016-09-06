@@ -5,34 +5,34 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import mirrg.mpg.sulfur.node.Node;
-import mirrg.mpg.sulfur.node.pin.InputPin;
-import mirrg.mpg.sulfur.node.pin.OutputPin;
+import mirrg.mpg.sulfur.node.pin.PinInput;
+import mirrg.mpg.sulfur.node.pin.PinOutput;
 
 public class NodeStruct2Elements extends Node
 {
 
-	public final InputPin<Object> inputPin;
-	public final OutputPin<String[]> outputPin;
+	public final PinInput<Object> pinInput;
+	public final PinOutput<String[]> pinOutput;
 
 	public NodeStruct2Elements()
 	{
-		addInputPin(inputPin = new InputPin<Object>() {
+		addPinInput(pinInput = new PinInput<Object>() {
 
 			@Override
 			protected void onClosed()
 			{
-				outputPin.fireClose();
+				pinOutput.fireClose();
 			}
 
 			@Override
 			protected void accept(Object packet)
 			{
-				outputPin.fire(toStream("", packet)
+				pinOutput.fire(toStream("", packet)
 					.toArray(String[]::new));
 			}
 
 		});
-		addOutputPin(outputPin = new OutputPin<>());
+		addPinOutput(pinOutput = new PinOutput<>());
 	}
 
 	protected Stream<String> toStream(String prefix, Object packet)

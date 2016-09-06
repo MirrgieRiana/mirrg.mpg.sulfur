@@ -8,18 +8,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import mirrg.mpg.sulfur.node.NodeEntryPoint;
-import mirrg.mpg.sulfur.node.pin.OutputPin;
+import mirrg.mpg.sulfur.node.pin.PinOutput;
 
 public class NodeInputLines extends NodeEntryPoint
 {
 
 	private File file;
-	public final OutputPin<String> outputPin;
+	public final PinOutput<String> pinOutput;
 
 	public NodeInputLines(File file)
 	{
 		this.file = file;
-		addOutputPin(outputPin = new OutputPin<>());
+		addPinOutput(pinOutput = new PinOutput<>());
 	}
 
 	@Override
@@ -31,12 +31,12 @@ public class NodeInputLines extends NodeEntryPoint
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 
-			outputPin.fireClose();
+			pinOutput.fireClose();
 			return;
 		}
 
 		in.lines()
-			.forEach(outputPin::fire);
+			.forEach(pinOutput::fire);
 
 		try {
 			in.close();
@@ -44,7 +44,7 @@ public class NodeInputLines extends NodeEntryPoint
 			e.printStackTrace();
 		}
 
-		outputPin.fireClose();
+		pinOutput.fireClose();
 	}
 
 }

@@ -9,20 +9,20 @@ import javax.imageio.ImageIO;
 
 import mirrg.helium.standard.hydrogen.struct.Tuple3;
 import mirrg.mpg.sulfur.node.Node;
-import mirrg.mpg.sulfur.node.pin.InputPin;
-import mirrg.mpg.sulfur.node.pin.OutputPin;
+import mirrg.mpg.sulfur.node.pin.PinInput;
+import mirrg.mpg.sulfur.node.pin.PinOutput;
 
 public class NodeIS2Image extends Node
 {
 
 	private ArrayList<Tuple3<byte[], Integer, Integer>> buffers = new ArrayList<>();
 
-	public final InputPin<Tuple3<byte[], Integer, Integer>> inputPin;
-	public final OutputPin<BufferedImage> outputPin;
+	public final PinInput<Tuple3<byte[], Integer, Integer>> pinInput;
+	public final PinOutput<BufferedImage> pinOutput;
 
 	public NodeIS2Image()
 	{
-		addInputPin(inputPin = new InputPin<Tuple3<byte[], Integer, Integer>>() {
+		addPinInput(pinInput = new PinInput<Tuple3<byte[], Integer, Integer>>() {
 
 			@Override
 			protected void onClosed()
@@ -53,8 +53,8 @@ public class NodeIS2Image extends Node
 						}
 
 					});
-					outputPin.fire(image);
-					outputPin.fireClose();
+					pinOutput.fire(image);
+					pinOutput.fireClose();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -67,7 +67,7 @@ public class NodeIS2Image extends Node
 			}
 
 		});
-		addOutputPin(outputPin = new OutputPin<>());
+		addPinOutput(pinOutput = new PinOutput<>());
 	}
 
 }

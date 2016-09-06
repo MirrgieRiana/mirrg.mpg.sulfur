@@ -3,33 +3,33 @@ package mirrg.mpg.sulfur.node;
 import java.util.ArrayList;
 import java.util.List;
 
-import mirrg.mpg.sulfur.node.pin.InputPin;
-import mirrg.mpg.sulfur.node.pin.OutputPin;
+import mirrg.mpg.sulfur.node.pin.PinInput;
+import mirrg.mpg.sulfur.node.pin.PinOutput;
 
 public abstract class Node
 {
 
-	private ArrayList<InputPin<?>> inputPins = new ArrayList<>();
-	private ArrayList<OutputPin<?>> outputPins = new ArrayList<>();
+	private ArrayList<PinInput<?>> pinInputs = new ArrayList<>();
+	private ArrayList<PinOutput<?>> pinOutputs = new ArrayList<>();
 
-	protected void addInputPin(InputPin<?> inputPin)
+	protected void addPinInput(PinInput<?> pinInput)
 	{
-		inputPins.add(inputPin);
+		pinInputs.add(pinInput);
 	}
 
-	protected void addOutputPin(OutputPin<?> outputPin)
+	protected void addPinOutput(PinOutput<?> pinOutput)
 	{
-		outputPins.add(outputPin);
+		pinOutputs.add(pinOutput);
 	}
 
-	public List<InputPin<?>> getInputPins()
+	public List<PinInput<?>> getPinInputs()
 	{
-		return inputPins;
+		return pinInputs;
 	}
 
-	public List<OutputPin<?>> getOutputPins()
+	public List<PinOutput<?>> getPinOutputs()
 	{
-		return outputPins;
+		return pinOutputs;
 	}
 
 }

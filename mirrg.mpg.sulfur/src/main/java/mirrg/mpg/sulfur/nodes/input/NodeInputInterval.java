@@ -3,16 +3,16 @@ package mirrg.mpg.sulfur.nodes.input;
 import java.time.LocalDateTime;
 
 import mirrg.mpg.sulfur.node.NodeEntryPoint;
-import mirrg.mpg.sulfur.node.pin.OutputPin;
+import mirrg.mpg.sulfur.node.pin.PinOutput;
 
 public class NodeInputInterval extends NodeEntryPoint
 {
 
-	public final OutputPin<LocalDateTime> outputPin;
+	public final PinOutput<LocalDateTime> pinOutput;
 
 	public NodeInputInterval()
 	{
-		addOutputPin(outputPin = new OutputPin<>());
+		addPinOutput(pinOutput = new PinOutput<>());
 	}
 
 	@Override
@@ -26,10 +26,10 @@ public class NodeInputInterval extends NodeEntryPoint
 			} catch (InterruptedException e) {
 				break;
 			}
-			outputPin.fire(LocalDateTime.now());
+			pinOutput.fire(LocalDateTime.now());
 		}
 
-		outputPin.fireClose();
+		pinOutput.fireClose();
 	}
 
 }

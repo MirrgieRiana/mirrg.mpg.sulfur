@@ -3,23 +3,23 @@ package mirrg.mpg.sulfur.nodes.converter;
 import java.awt.image.BufferedImage;
 
 import mirrg.mpg.sulfur.node.Node;
-import mirrg.mpg.sulfur.node.pin.InputPin;
-import mirrg.mpg.sulfur.node.pin.OutputPin;
+import mirrg.mpg.sulfur.node.pin.PinInput;
+import mirrg.mpg.sulfur.node.pin.PinOutput;
 
 public class NodeImageNegation extends Node
 {
 
-	public final InputPin<BufferedImage> inputPin;
-	public final OutputPin<BufferedImage> outputPin;
+	public final PinInput<BufferedImage> pinInput;
+	public final PinOutput<BufferedImage> pinOutput;
 
 	public NodeImageNegation()
 	{
-		addInputPin(inputPin = new InputPin<BufferedImage>() {
+		addPinInput(pinInput = new PinInput<BufferedImage>() {
 
 			@Override
 			protected void onClosed()
 			{
-				outputPin.fireClose();
+				pinOutput.fireClose();
 			}
 
 			@Override
@@ -47,11 +47,11 @@ public class NodeImageNegation extends Node
 					}
 				}
 
-				outputPin.fire(dest);
+				pinOutput.fire(dest);
 			}
 
 		});
-		addOutputPin(outputPin = new OutputPin<>());
+		addPinOutput(pinOutput = new PinOutput<>());
 	}
 
 }

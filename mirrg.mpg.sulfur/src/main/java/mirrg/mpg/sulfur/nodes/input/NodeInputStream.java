@@ -5,20 +5,20 @@ import java.io.InputStream;
 
 import mirrg.helium.standard.hydrogen.struct.Tuple3;
 import mirrg.mpg.sulfur.node.NodeEntryPoint;
-import mirrg.mpg.sulfur.node.pin.OutputPin;
+import mirrg.mpg.sulfur.node.pin.PinOutput;
 
 public class NodeInputStream extends NodeEntryPoint
 {
 
 	private InputStream in;
 	private int bufferSize;
-	public final OutputPin<Tuple3<byte[], Integer, Integer>> outputPin;
+	public final PinOutput<Tuple3<byte[], Integer, Integer>> pinOutput;
 
 	public NodeInputStream(InputStream in, int bufferSize)
 	{
 		this.in = in;
 		this.bufferSize = bufferSize;
-		addOutputPin(outputPin = new OutputPin<>());
+		addPinOutput(pinOutput = new PinOutput<>());
 	}
 
 	@Override
@@ -36,10 +36,10 @@ public class NodeInputStream extends NodeEntryPoint
 			}
 			if (length == -1) break;
 
-			outputPin.fire(new Tuple3<>(buffer, 0, length));
+			pinOutput.fire(new Tuple3<>(buffer, 0, length));
 		}
 
-		outputPin.fireClose();
+		pinOutput.fireClose();
 	}
 
 }

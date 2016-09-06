@@ -2,16 +2,16 @@ package mirrg.mpg.sulfur.nodes.output;
 
 import mirrg.mpg.sulfur.Main;
 import mirrg.mpg.sulfur.node.Node;
-import mirrg.mpg.sulfur.node.pin.InputPin;
+import mirrg.mpg.sulfur.node.pin.PinInput;
 
 public class NodeOutputStdout extends Node
 {
 
-	public final InputPin<String> inputPin;
+	public final PinInput<String> pinInput;
 
 	public NodeOutputStdout()
 	{
-		addInputPin(inputPin = new InputPin<String>() {
+		addPinInput(pinInput = new PinInput<String>() {
 
 			@Override
 			protected void accept(String packet)

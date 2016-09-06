@@ -80,8 +80,8 @@ public class Main
 			.forEach(c -> nodes.put(c.id, RegistryNode.create(c.name, c.argument)));
 		Stream.of(config.connections)
 			.forEach(c -> PinUtil.connectRaw(
-				nodes.get(c.from.node).getOutputPins().get(c.from.pin),
-				nodes.get(c.to.node).getInputPins().get(c.to.pin)));
+				nodes.get(c.from.node).getPinOutputs().get(c.from.pin),
+				nodes.get(c.to.node).getPinInputs().get(c.to.pin)));
 
 		return nodes.values().stream()
 			.filter(NodeEntryPoint.class::isInstance)
