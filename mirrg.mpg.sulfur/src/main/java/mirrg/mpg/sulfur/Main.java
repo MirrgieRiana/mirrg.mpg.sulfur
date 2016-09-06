@@ -73,7 +73,7 @@ public class Main
 
 	public static ArrayList<Thread> main(File fileJson) throws Exception
 	{
-		Config config = JSON.decode(new FileInputStream(fileJson), Config.class);
+		Config config = Config.load(fileJson);
 
 		Hashtable<String, Node> nodes = new Hashtable<>();
 		Stream.of(config.nodes)
