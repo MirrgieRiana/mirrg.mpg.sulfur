@@ -47,18 +47,18 @@ def mavenRepositories = [
 ]
 
 // ★実行可能Jar
-def mainClass = null
+def mainClass = "mirrg.mpg.sulfur.MainLauncher"
 
 def outputLocation =
 
 	// ★'../maven'にMavenプロジェクトとして出力する場合
-	'maven'
+	//'maven'
 
 	// ★'../repos'にJarを出力する場合
-	//'dir'
+	'dir'
 
 // ★まとまったJarとして出力する
-def allInOne = false
+def allInOne = true
 
 //////////////////////////////////////////////////////////////////////
 
@@ -135,7 +135,7 @@ uploadArchives {
 
 		if (outputLocation == 'dir') {
 			flatDir {
-				dirs '../repos'
+				dirs '.'
 			}
 		}
 
