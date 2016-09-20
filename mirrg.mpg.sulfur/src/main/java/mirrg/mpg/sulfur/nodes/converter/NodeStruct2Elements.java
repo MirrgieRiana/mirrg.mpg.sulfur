@@ -50,6 +50,15 @@ public class NodeStruct2Elements extends Node
 					return s;
 				});
 		}
+		if (packet instanceof Object[]) {
+			int[] i = new int[1];
+			return Stream.of((Object[]) packet)
+				.flatMap(o -> {
+					Stream<String> s = toStream(prefix + "/" + i[0], o);
+					i[0]++;
+					return s;
+				});
+		}
 		return Stream.of(prefix + " = " + packet);
 	}
 
