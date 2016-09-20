@@ -1,7 +1,7 @@
 {
 	nodes: [
 		{
-			name: "standard.input.lines"
+			name: "standard.input.file.line"
 			id: "1"
 			argument: "in.txt"
 		}

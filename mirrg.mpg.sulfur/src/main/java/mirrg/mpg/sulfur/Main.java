@@ -34,10 +34,10 @@ public class Main
 	public static PrintStream out = System.out;
 
 	static {
-		RegistryNode.register("standard.input.lines", a -> new NodeInputLines(new File((String) a)));
-		RegistryNode.register("standard.input.csv", a -> new NodeInputCSV(new File((String) a)));
+		RegistryNode.register("standard.input.file.line", a -> new NodeInputLines(new File((String) a)));
+		RegistryNode.register("standard.input.file.csv", a -> new NodeInputCSV(new File((String) a)));
 		RegistryNode.register("standard.input.interval", a -> new NodeInputInterval());
-		RegistryNode.register("standard.input.bytes", a -> {
+		RegistryNode.register("standard.input.stream.bytes", a -> {
 			try {
 				return new NodeInputStream(new FileInputStream(new File((String) a)), 1024);
 			} catch (FileNotFoundException e) {

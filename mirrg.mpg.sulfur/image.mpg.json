@@ -1,7 +1,7 @@
 {
 	nodes: [
 		{
-			name: "standard.input.bytes"
+			name: "standard.input.stream.bytes"
 			id: "1"
 			argument: "in.png"
 		}
