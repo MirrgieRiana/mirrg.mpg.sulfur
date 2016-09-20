@@ -1,7 +1,7 @@
 {
 	nodes: [
 		{
-			name: "standard.input.stream.line"
+			name: "standard.input.file.line"
 			id: "1"
 			argument: "in.csv"
 		}
