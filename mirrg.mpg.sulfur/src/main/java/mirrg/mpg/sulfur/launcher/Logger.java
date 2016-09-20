@@ -6,6 +6,9 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.SimpleAttributeSet;
@@ -14,6 +17,7 @@ import javax.swing.text.StyleConstants;
 public class Logger
 {
 
+	public JScrollPane scrollPane;
 	private DefaultStyledDocument documentLog;
 	public PrintStream out = new PrintStream(new OutputStream() {
 
@@ -45,12 +49,29 @@ public class Logger
 
 	public void appendText(String string, Color color)
 	{
+		boolean sholdScroll = false;
+		JScrollBar scrollBar = scrollPane.getVerticalScrollBar();
+		if (scrollPane != null) {
+			int value = scrollBar.getValue();
+			int maximum = scrollBar.getMaximum();
+			int visibleAmount = scrollBar.getVisibleAmount();
+			if (value >= maximum - visibleAmount - 25) {
+				sholdScroll = true;
+			}
+		}
+
 		SimpleAttributeSet attr = new SimpleAttributeSet();
 		attr.addAttribute(StyleConstants.Foreground, color);
 		try {
 			documentLog.insertString(documentLog.getLength(), string, attr);
 		} catch (BadLocationException e) {
 			e.printStackTrace();
+		}
+
+		if (sholdScroll) {
+			SwingUtilities.invokeLater(() -> {
+				scrollBar.setValue(scrollBar.getMaximum());
+			});
 		}
 	}
 

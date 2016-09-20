@@ -62,13 +62,17 @@ public class FrameLauncher extends JFrame
 					}),
 					null)),
 			createBorderPanelDown(
-				createScrollPane(get(() -> {
-					documentLog = new DefaultStyledDocument();
-					logger = new Logger(documentLog);
-					textPaneLog = new JTextPane(documentLog);
-					textPaneLog.setFont(new Font("MS Gothic", Font.PLAIN, 11));
-					return textPaneLog;
-				}), 600, 400),
+				process(
+					createScrollPane(get(() -> {
+						documentLog = new DefaultStyledDocument();
+						logger = new Logger(documentLog);
+						textPaneLog = new JTextPane(documentLog);
+						textPaneLog.setFont(new Font("MS Gothic", Font.PLAIN, 11));
+						return textPaneLog;
+					}), 600, 400),
+					s -> {
+						logger.scrollPane = s;
+					}),
 				createBorderPanelRight(
 					null,
 					createButton("クリア", e -> {
