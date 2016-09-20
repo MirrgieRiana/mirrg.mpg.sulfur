@@ -4,12 +4,18 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import gnu.io.CommPortIdentifier;
+import gnu.io.NoSuchPortException;
+import gnu.io.PortInUseException;
+import gnu.io.SerialPort;
+import gnu.io.UnsupportedCommOperationException;
 import mirrg.mpg.sulfur.node.Node;
 import mirrg.mpg.sulfur.node.NodeEntryPoint;
 import mirrg.mpg.sulfur.node.RegistryNode;
@@ -19,11 +25,14 @@ import mirrg.mpg.sulfur.nodes.converter.NodeFlatMap;
 import mirrg.mpg.sulfur.nodes.converter.NodeIS2Image;
 import mirrg.mpg.sulfur.nodes.converter.NodeImage2OS;
 import mirrg.mpg.sulfur.nodes.converter.NodeImageNegation;
+import mirrg.mpg.sulfur.nodes.converter.NodeLine2CSV;
+import mirrg.mpg.sulfur.nodes.converter.NodeLine2Extracted;
 import mirrg.mpg.sulfur.nodes.converter.NodeStruct2Elements;
 import mirrg.mpg.sulfur.nodes.converter.NodeToString;
 import mirrg.mpg.sulfur.nodes.input.NodeInputCSV;
 import mirrg.mpg.sulfur.nodes.input.NodeInputInterval;
 import mirrg.mpg.sulfur.nodes.input.NodeInputLines;
+import mirrg.mpg.sulfur.nodes.input.NodeInputSerialLine;
 import mirrg.mpg.sulfur.nodes.input.NodeInputStream;
 import mirrg.mpg.sulfur.nodes.output.NodeOutputStdout;
 import mirrg.mpg.sulfur.nodes.output.NodeOutputStream;
@@ -44,6 +53,32 @@ public class Main
 				throw new RuntimeException(e);
 			}
 		});
+		RegistryNode.register("standard.input.serial.line", a -> {
+			SerialPort port;
+			try {
+				port = (SerialPort) CommPortIdentifier.getPortIdentifier((String) a).open("MPG", 2000);
+			} catch (PortInUseException e) {
+				throw new RuntimeException(e);
+			} catch (NoSuchPortException e) {
+				throw new RuntimeException(e);
+			}
+
+			try {
+				port.setSerialPortParams(
+					9600,
+					SerialPort.DATABITS_8,
+					SerialPort.STOPBITS_1,
+					SerialPort.PARITY_NONE);
+			} catch (UnsupportedCommOperationException e) {
+				throw new RuntimeException(e);
+			}
+
+			try {
+				return new NodeInputSerialLine(port.getInputStream());
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		});
 		RegistryNode.register("standard.converter.csv.struct", a -> new NodeCSV2Struct());
 		RegistryNode.register("standard.converter.struct.elements", a -> new NodeStruct2Elements());
 		RegistryNode.register("standard.converter.flatMap", a -> new NodeFlatMap<>());
@@ -51,6 +86,8 @@ public class Main
 		RegistryNode.register("standard.converter.bytes.image", a -> new NodeIS2Image());
 		RegistryNode.register("standard.converter.imageNegation", a -> new NodeImageNegation());
 		RegistryNode.register("standard.converter.image.bytes", a -> new NodeImage2OS());
+		RegistryNode.register("standard.converter.line.csv", a -> new NodeLine2CSV());
+		RegistryNode.register("standard.converter.line.extracted", a -> new NodeLine2Extracted());
 		RegistryNode.register("standard.output.stdout", a -> new NodeOutputStdout());
 		RegistryNode.register("standard.output.bytes", a -> {
 			try {

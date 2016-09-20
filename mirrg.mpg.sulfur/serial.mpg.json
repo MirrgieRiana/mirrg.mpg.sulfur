@@ -1,0 +1,71 @@
+{
+	nodes: [
+		{
+			name: "standard.input.serial.line"
+			id: "1"
+			argument: "COM3"
+		}
+		{
+			name: "standard.converter.line.extracted"
+			id: "2"
+			argument: null
+		}
+		{
+			name: "standard.converter.struct.elements"
+			id: "3"
+			argument: null
+		}
+		{
+			name: "standard.converter.flatMap"
+			id: "4"
+			argument: null
+		}
+		{
+			name: "standard.output.stdout"
+			id: "5"
+			argument: null
+		}
+	]
+	connections: [
+		{
+			from: {
+				node: "1"
+				pin: 0
+			}
+			to: {
+				node: "2"
+				pin: 0
+			}
+		}
+		{
+			from: {
+				node: "2"
+				pin: 0
+			}
+			to: {
+				node: "3"
+				pin: 0
+			}
+		}
+		{
+			from: {
+				node: "3"
+				pin: 0
+			}
+			to: {
+				node: "4"
+				pin: 0
+			}
+		}
+		{
+			from: {
+				node: "4"
+				pin: 0
+			}
+			to: {
+				node: "5"
+				pin: 0
+			}
+		}
+	]
+}
